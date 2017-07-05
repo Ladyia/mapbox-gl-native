@@ -101,16 +101,12 @@ set(MBGL_CORE_FILES
     src/mbgl/layout/symbol_projection.hpp
 
     # map
-    include/mbgl/map/backend.hpp
-    include/mbgl/map/backend_scope.hpp
     include/mbgl/map/camera.hpp
     include/mbgl/map/change.hpp
     include/mbgl/map/map.hpp
     include/mbgl/map/map_observer.hpp
     include/mbgl/map/mode.hpp
     include/mbgl/map/view.hpp
-    src/mbgl/map/backend.cpp
-    src/mbgl/map/backend_scope.cpp
     src/mbgl/map/map.cpp
     src/mbgl/map/transform.cpp
     src/mbgl/map/transform.hpp
@@ -158,9 +154,12 @@ set(MBGL_CORE_FILES
     src/mbgl/programs/uniforms.hpp
 
     # renderer
+    include/mbgl/renderer/backend_scope.hpp
     include/mbgl/renderer/query.hpp
     include/mbgl/renderer/renderer.hpp
+    include/mbgl/renderer/renderer_backend.hpp
     include/mbgl/renderer/renderer_frontend.hpp
+    src/mbgl/renderer/backend_scope.cpp
     src/mbgl/renderer/bucket.hpp
     src/mbgl/renderer/bucket_parameters.cpp
     src/mbgl/renderer/bucket_parameters.hpp
@@ -198,6 +197,7 @@ set(MBGL_CORE_FILES
     src/mbgl/renderer/render_tile.cpp
     src/mbgl/renderer/render_tile.hpp
     src/mbgl/renderer/renderer.cpp
+    src/mbgl/renderer/renderer_backend.cpp
     src/mbgl/renderer/renderer_impl.cpp
     src/mbgl/renderer/renderer_impl.hpp
     src/mbgl/renderer/renderer_observer.hpp
@@ -617,8 +617,8 @@ set(MBGL_CORE_FILES
     src/mbgl/util/stopwatch.cpp
     src/mbgl/util/stopwatch.hpp
     src/mbgl/util/string.cpp
-    src/mbgl/util/thread_local.hpp
     src/mbgl/util/thread.hpp
+    src/mbgl/util/thread_local.hpp
     src/mbgl/util/throttler.cpp
     src/mbgl/util/throttler.hpp
     src/mbgl/util/tile_coordinate.hpp
