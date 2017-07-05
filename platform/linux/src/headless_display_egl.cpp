@@ -62,4 +62,6 @@ HeadlessDisplay::HeadlessDisplay()
 HeadlessDisplay::~HeadlessDisplay() {
 }
 
+std::weak_ptr<HeadlessDisplay> HeadlessDisplay::instance;
+
 } // namespace mbgl
