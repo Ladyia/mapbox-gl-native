@@ -14,6 +14,13 @@
 
 using namespace mbgl;
 
+namespace {
+
+optional<FeatureIdentifier> id;
+PropertyMap properties;
+
+}
+
 TEST(Buckets, CircleBucket) {
     gl::Context context;
     CircleBucket bucket { { {0, 0, 0}, MapMode::Still, 1.0 }, {} };
@@ -21,7 +28,7 @@ TEST(Buckets, CircleBucket) {
     ASSERT_FALSE(bucket.needsUpload());
 
     GeometryCollection point { { { 0, 0 } } };
-    bucket.addFeature(StubGeometryTileFeature { {}, FeatureType::Point, point, {} }, point);
+    bucket.addFeature(StubGeometryTileFeature { id, FeatureType::Point, point, properties }, point);
     ASSERT_TRUE(bucket.hasData());
     ASSERT_TRUE(bucket.needsUpload());
 
@@ -37,7 +44,7 @@ TEST(Buckets, FillBucket) {
     ASSERT_FALSE(bucket.needsUpload());
 
     GeometryCollection polygon { { { 0, 0 }, { 0, 1 }, { 1, 1 } } };
-    bucket.addFeature(StubGeometryTileFeature { {}, FeatureType::Polygon, polygon, {} }, polygon);
+    bucket.addFeature(StubGeometryTileFeature { id, FeatureType::Polygon, polygon, properties }, polygon);
     ASSERT_TRUE(bucket.hasData());
     ASSERT_TRUE(bucket.needsUpload());
 
@@ -53,11 +60,11 @@ TEST(Buckets, LineBucket) {
 
     // Ignore invalid feature type.
     GeometryCollection point { { { 0, 0 } } };
-    bucket.addFeature(StubGeometryTileFeature { {}, FeatureType::Point, point, {} }, point);
+    bucket.addFeature(StubGeometryTileFeature { id, FeatureType::Point, point, properties }, point);
     ASSERT_FALSE(bucket.hasData());
 
     GeometryCollection line { { { 0, 0 }, { 1, 1 } } };
-    bucket.addFeature(StubGeometryTileFeature { {}, FeatureType::LineString, line, {} }, line);
+    bucket.addFeature(StubGeometryTileFeature { id, FeatureType::LineString, line, properties }, line);
     ASSERT_TRUE(bucket.hasData());
     ASSERT_TRUE(bucket.needsUpload());
 
@@ -80,7 +87,7 @@ TEST(Buckets, SymbolBucket) {
 
     // SymbolBucket::addFeature() is a no-op.
     GeometryCollection point { { { 0, 0 } } };
-    bucket.addFeature(StubGeometryTileFeature { {}, FeatureType::Point, point, {} }, point);
+    bucket.addFeature(StubGeometryTileFeature { id, FeatureType::Point, point, properties }, point);
     ASSERT_FALSE(bucket.hasData());
     ASSERT_FALSE(bucket.needsUpload());
 
