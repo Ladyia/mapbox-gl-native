@@ -111,9 +111,6 @@ EvaluationResult evaluateFromArgs(const EvaluationParameters& params,
 }
 
 
-const std::string TypeOf::name = "typeof";
-const type::Type TypeOf::type = type::String;
-const std::vector<LambdaExpression::Params> TypeOf::signatures = {{type::Value}};
 EvaluationResult TypeOf::evaluate(const EvaluationParameters& params) const  {
     const auto& value = args[0]->evaluate(params);
     return value.match(
@@ -122,9 +119,6 @@ EvaluationResult TypeOf::evaluate(const EvaluationParameters& params) const  {
     );
 }
 
-const std::string Get::name = "get";
-const type::Type Get::type = type::String;
-const std::vector<LambdaExpression::Params> Get::signatures = {{type::String, NArgs { {type::Object}, 1 }}};
 bool Get::isFeatureConstant() const {
     return args.size() == 1 ? false : LambdaExpression::isFeatureConstant();
 }
@@ -148,34 +142,21 @@ EvaluationResult Get::evaluate(const EvaluationParameters& params) const {
     }
 }
 
-
-const std::string Plus::name = "+";
-const type::Type Plus::type = type::Number;
-const std::vector<LambdaExpression::Params> Plus::signatures = {{NArgs {{type::Number}, {}}}};
 EvaluationResult Plus::evaluate(const EvaluationParameters& params) const  {
     return evaluateBinaryOperator<float>(params, args,
         {}, [](float memo, float next) { return memo + next; });
 }
 
-const std::string Times::name = "*";
-const type::Type Times::type = type::Number;
-const std::vector<LambdaExpression::Params> Times::signatures = {{NArgs {{type::Number}, {}}}};;
 EvaluationResult Times::evaluate(const EvaluationParameters& params) const  {
     return evaluateBinaryOperator<float>(params, args,
         {}, [](float memo, float next) { return memo * next; });
 }
 
-const std::string Minus::name = "-";
-const type::Type Minus::type = type::Number;
-const std::vector<LambdaExpression::Params> Minus::signatures = {{type::Number, type::Number}};
 EvaluationResult Minus::evaluate(const EvaluationParameters& params) const  {
     return evaluateBinaryOperator<float>(params, args,
         {}, [](float memo, float next) { return memo - next; });
 }
 
-const std::string Divide::name = "/";
-const type::Type Divide::type = type::Number;
-const std::vector<LambdaExpression::Params> Divide::signatures = {{type::Number, type::Number}};
 EvaluationResult Divide::evaluate(const EvaluationParameters& params) const  {
     return evaluateBinaryOperator<float>(params, args,
         {}, [](float memo, float next) { return memo / next; });
